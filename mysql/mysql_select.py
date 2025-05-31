@@ -1,4 +1,5 @@
 import db 
+import streamlit as st
 cursor, db = db.get_connection()
 
 sql = 'SELECT * FROM posts'
@@ -7,4 +8,4 @@ rows = cursor.fetchall()
 
 # all rows
 for i in range(0, len(rows)):
-    print(rows[i]['title'])
+    st.write(rows[i]['title'])
