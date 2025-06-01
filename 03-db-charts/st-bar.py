@@ -8,7 +8,10 @@ st.set_page_config(
 
 st.html('<h1>MyWorkAds - City & Service Ads Count</h1>')
 
-# city chart
+
+
+
+# city chart pandas
 sql = """
     SELECT c.city, COUNT(*) AS count 
     FROM ad a, city c 
@@ -20,16 +23,16 @@ sql = """
 cursor.execute(sql)
 rows = cursor.fetchall()
 
-city = []
-count = []
-for i in range(0, len(rows)):
-    city.append(rows[i]['city'])
-    count.append(rows[i]['count'])
+# *** pandas ***
+df = pd.DataFrame(rows)
+city = df['city']
+count = [int(x) for x in df['count']] # convery numpy list to py list
 
-st.html('<h3>City Ads Count</h3>')
-
+st.html('<h3>City Ads Count - Using Pandas</h3>')
 city_chart_data = pd.DataFrame(count, city)
 st.bar_chart(city_chart_data)
+
+
 
 
 # service chart
@@ -44,13 +47,14 @@ sql = """
 cursor.execute(sql)
 rows = cursor.fetchall()
 
+# *** loop ***
 service = []
 count = []
 for i in range(0, len(rows)):
     service.append(rows[i]['service_title'])
     count.append(rows[i]['count'])
 
-st.html('<h3>Service Ads Count</h3>')
+st.html('<h3>Service Ads Count - Using Py Loop</h3>')
 
 service_chart_data = pd.DataFrame(count, service)
 st.bar_chart(service_chart_data)
