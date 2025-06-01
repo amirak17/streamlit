@@ -6,6 +6,8 @@ st.set_page_config(
     page_title='MyWorkAds - City & Service Ads Count', page_icon='https://activetechsystems.com/wp-content/uploads/2025/03/ats-fav-300.png', layout="wide"
 )
 
+st.html('<h3>MyWorkAds - City & Service Ads Count</h3>')
+
 # city chart
 sql = """
     SELECT c.city, COUNT(*) AS count 
